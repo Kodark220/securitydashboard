@@ -1,0 +1,55 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+* {
+  @apply box-border;
+}
+
+body {
+  @apply bg-gray-900 text-gray-100 font-sans;
+}
+
+.glass {
+  @apply bg-white/10 backdrop-blur-md border border-white/20;
+}
+
+.glass-dark {
+  @apply bg-gray-800/50 backdrop-blur-md border border-gray-700/50;
+}
+
+.gradient-danger {
+  @apply bg-gradient-to-r from-red-600 to-red-700;
+}
+
+.gradient-warning {
+  @apply bg-gradient-to-r from-yellow-500 to-orange-600;
+}
+
+.gradient-success {
+  @apply bg-gradient-to-r from-green-500 to-emerald-600;
+}
+
+.gradient-info {
+  @apply bg-gradient-to-r from-blue-500 to-cyan-600;
+}
+
+.pulse-glow {
+  @apply animate-pulse shadow-lg shadow-red-500/50;
+}
+
+.risk-low {
+  @apply text-green-400;
+}
+
+.risk-medium {
+  @apply text-yellow-400;
+}
+
+.risk-high {
+  @apply text-orange-400;
+}
+
+.risk-critical {
+  @apply text-red-500 pulse-glow;
+}
