@@ -17,13 +17,15 @@ export const Navigation = ({ currentPage, onNavigate }: NavProps) => {
   ];
 
   return (
-    <nav className="glass sticky top-0 z-50 border-b border-gray-700">
+    <nav className="glass sticky top-0 z-50 border-b border-white/10">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between items-center h-16">
           {/* Logo */}
           <div className="flex items-center gap-2">
-            <ShieldAlert className="w-8 h-8 text-blue-400" />
-            <span className="text-xl font-bold text-blue-400">SecurityGuard</span>
+            <ShieldAlert className="w-8 h-8 text-amber-300" />
+            <span className="text-xl font-bold font-display text-transparent bg-clip-text bg-gradient-to-r from-amber-200 via-cyan-200 to-sky-200">
+              SecurityGuard
+            </span>
           </div>
 
           {/* Desktop Nav */}
@@ -34,8 +36,8 @@ export const Navigation = ({ currentPage, onNavigate }: NavProps) => {
                 onClick={() => onNavigate(id)}
                 className={`flex items-center gap-2 px-4 py-2 rounded-lg transition ${
                   currentPage === id
-                    ? 'bg-blue-600 text-white'
-                    : 'text-gray-400 hover:text-gray-300 hover:bg-gray-800/50'
+                    ? 'bg-white/10 text-white border border-white/10 shadow-lg shadow-black/20'
+                    : 'text-slate-200/70 hover:text-white hover:bg-white/5'
                 }`}
               >
                 <Icon className="w-4 h-4" />
@@ -47,12 +49,12 @@ export const Navigation = ({ currentPage, onNavigate }: NavProps) => {
           {/* Mobile Menu Button */}
           <button
             onClick={() => setMenuOpen(!menuOpen)}
-            className="md:hidden p-2 hover:bg-gray-800 rounded-lg transition"
+            className="md:hidden p-2 hover:bg-white/10 rounded-lg transition"
           >
             <div className="space-y-1">
-              <div className="w-6 h-0.5 bg-gray-400"></div>
-              <div className="w-6 h-0.5 bg-gray-400"></div>
-              <div className="w-6 h-0.5 bg-gray-400"></div>
+              <div className="w-6 h-0.5 bg-slate-200"></div>
+              <div className="w-6 h-0.5 bg-slate-200"></div>
+              <div className="w-6 h-0.5 bg-slate-200"></div>
             </div>
           </button>
         </div>
@@ -69,8 +71,8 @@ export const Navigation = ({ currentPage, onNavigate }: NavProps) => {
                 }}
                 className={`w-full flex items-center gap-2 px-4 py-2 rounded-lg transition ${
                   currentPage === id
-                    ? 'bg-blue-600 text-white'
-                    : 'text-gray-400 hover:text-gray-300 hover:bg-gray-800/50'
+                    ? 'bg-white/10 text-white border border-white/10'
+                    : 'text-slate-200/70 hover:text-white hover:bg-white/5'
                 }`}
               >
                 <Icon className="w-4 h-4" />

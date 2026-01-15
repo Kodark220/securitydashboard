@@ -30,7 +30,7 @@ export const SettingsPage = () => {
   if (!status) {
     return (
       <div className="flex items-center justify-center min-h-screen">
-        <div className="text-gray-400">Loading settings...</div>
+        <div className="text-slate-500">Loading settings...</div>
       </div>
     );
   }
@@ -38,8 +38,8 @@ export const SettingsPage = () => {
   return (
     <div className="space-y-6">
       <div>
-        <h1 className="text-3xl font-bold text-white mb-2">System Settings</h1>
-        <p className="text-gray-400">Configure security parameters and manage access</p>
+        <h1 className="text-3xl font-bold text-slate-900 mb-2">System Settings</h1>
+        <p className="text-slate-600">Configure security parameters and manage access</p>
       </div>
 
       {error && (
@@ -117,7 +117,7 @@ export const SettingsPage = () => {
           <div className="bg-gray-800 rounded-lg p-4">
             <p className="text-gray-400 text-sm mb-2">Monitoring Status</p>
             <p className={`text-lg font-semibold ${status.system.monitoring_enabled ? 'text-green-400' : 'text-gray-400'}`}>
-              {status.system.monitoring_enabled ? '✓ Enabled' : '○ Disabled'}
+              {status.system.monitoring_enabled ? 'Enabled' : 'Disabled'}
             </p>
           </div>
           <div className="bg-gray-800 rounded-lg p-4">
@@ -126,7 +126,7 @@ export const SettingsPage = () => {
           </div>
           <div className="bg-gray-800 rounded-lg p-4">
             <p className="text-gray-400 text-sm mb-2">Tracked Addresses</p>
-            <p className="text-2xl font-bold text-purple-400">{status.counts.tracked_addresses}</p>
+            <p className="text-2xl font-bold text-cyan-300">{status.counts.tracked_addresses}</p>
           </div>
         </div>
       </div>

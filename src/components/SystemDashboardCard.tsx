@@ -114,7 +114,7 @@ export const SystemDashboardCard = ({ dashboard, loading = false }: SystemDashbo
           </div>
           <div className="bg-gray-700 rounded-lg p-4">
             <p className="text-sm text-gray-400 mb-2">Tracked</p>
-            <p className="text-3xl font-bold text-purple-400">{security_roster.addresses_tracked}</p>
+            <p className="text-3xl font-bold text-cyan-300">{security_roster.addresses_tracked}</p>
           </div>
         </div>
       </div>
@@ -164,7 +164,7 @@ export const SystemDashboardCard = ({ dashboard, loading = false }: SystemDashbo
             <p className="text-xs text-gray-400 mt-1">Recommendations</p>
           </div>
           <div className="p-3 bg-gray-700 rounded text-center">
-            <p className="text-2xl font-bold text-purple-400">{recent_activity.predicted_threats_count}</p>
+            <p className="text-2xl font-bold text-cyan-300">{recent_activity.predicted_threats_count}</p>
             <p className="text-xs text-gray-400 mt-1">Predictions</p>
           </div>
         </div>

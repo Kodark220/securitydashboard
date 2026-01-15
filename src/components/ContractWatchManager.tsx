@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+﻿import React, { useState } from 'react';
 import { useSecurityGuard } from '../hooks/useSecurityGuard';
 
 export const ContractWatchManager: React.FC = () => {
@@ -73,7 +73,7 @@ export const ContractWatchManager: React.FC = () => {
 
       {success && (
         <div className="mb-4 p-3 bg-green-900/30 border border-green-700 rounded text-green-300 text-sm">
-          ✓ {success}
+          Success: {success}
         </div>
       )}
 
@@ -134,7 +134,7 @@ export const ContractWatchManager: React.FC = () => {
             <button
               onClick={handleCheckRisk}
               disabled={loading}
-              className="w-full bg-purple-600 hover:bg-purple-700 text-white font-semibold py-2 px-4 rounded transition disabled:opacity-50"
+              className="w-full bg-sky-600 hover:bg-sky-700 text-white font-semibold py-2 px-4 rounded transition disabled:opacity-50"
             >
               {loading ? 'Checking...' : 'Check Risk Profile'}
             </button>
@@ -174,7 +174,7 @@ export const ContractWatchManager: React.FC = () => {
               <ul className="text-sm text-gray-400 space-y-1">
                 {riskData.precautions.map((precaution: string, idx: number) => (
                   <li key={idx} className="flex items-start">
-                    <span className="mr-2">→</span>
+                    <span className="mr-2">-</span>
                     <span>{precaution}</span>
                   </li>
                 ))}
@@ -190,3 +190,4 @@ export const ContractWatchManager: React.FC = () => {
     </div>
   );
 };
+

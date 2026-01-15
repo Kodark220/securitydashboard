@@ -25,9 +25,9 @@ function App() {
   };
 
   return (
-    <div className="min-h-screen bg-gray-900">
+    <div className="app-shell">
       <Navigation currentPage={currentPage} onNavigate={setCurrentPage} />
-      <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+      <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10">
         {renderPage()}
       </main>
     </div>

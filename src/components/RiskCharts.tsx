@@ -84,7 +84,7 @@ export const RiskCharts = ({ status }: RiskChartsProps) => {
               contentStyle={{ backgroundColor: '#1f2937', border: '1px solid #374151', borderRadius: '8px' }}
               labelStyle={{ color: '#f3f4f6' }}
             />
-            <Bar dataKey="value" fill="#8b5cf6" />
+            <Bar dataKey="value" fill="#0ea5e9" />
           </BarChart>
         </ResponsiveContainer>
       </div>

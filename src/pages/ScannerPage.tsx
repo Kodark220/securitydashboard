@@ -26,14 +26,14 @@ export const ScannerPage = () => {
   return (
     <div className="space-y-6">
       <div>
-        <h1 className="text-3xl font-bold text-white mb-2">Transaction Scanner</h1>
-        <p className="text-gray-400">Scan transactions for threats using AI-powered threat detection</p>
+        <h1 className="text-3xl font-bold text-slate-900 mb-2">Transaction Scanner</h1>
+        <p className="text-slate-600">Scan transactions for threats using AI-powered threat detection</p>
       </div>
 
       <TransactionScanner onScan={handleScan} loading={loading} onResult={handleResult} />
 
       <div>
-        <h2 className="text-2xl font-bold text-white mb-4">Scan Results ({results.length})</h2>
+        <h2 className="text-2xl font-bold text-slate-900 mb-4">Scan Results ({results.length})</h2>
         {results.length === 0 ? (
           <div className="glass rounded-lg p-6 text-center text-gray-400">
             No scans performed yet. Start by entering a transaction above.

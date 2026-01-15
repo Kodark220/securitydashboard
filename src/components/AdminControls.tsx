@@ -37,65 +37,65 @@ export const AdminControls = ({
   const handlePause = async () => {
     try {
       await onEmergencyPause(pauseReason);
-      setMessage('✓ System paused successfully');
+      setMessage('Success: System paused successfully');
       setPauseReason('');
       setTimeout(() => setMessage(''), 3000);
     } catch (err) {
-      setMessage('✗ Failed to pause system');
+      setMessage('Error: Failed to pause system');
     }
   };
 
   const handleResume = async () => {
     try {
       await onResume(resumeJustification);
-      setMessage('✓ System resumed successfully');
+      setMessage('Success: System resumed successfully');
       setResumeJustification('');
       setTimeout(() => setMessage(''), 3000);
     } catch (err) {
-      setMessage('✗ Failed to resume system');
+      setMessage('Error: Failed to resume system');
     }
   };
 
   const handleAddOperator = async () => {
     try {
       await onAddOperator(newOperator);
-      setMessage('✓ Operator added successfully');
+      setMessage('Success: Operator added successfully');
       setNewOperator('');
       setTimeout(() => setMessage(''), 3000);
     } catch (err) {
-      setMessage('✗ Failed to add operator');
+      setMessage('Error: Failed to add operator');
     }
   };
 
   const handleBlacklist = async () => {
     try {
       await onBlacklistAddress(blacklistAddr);
-      setMessage('✓ Address blacklisted');
+      setMessage('Success: Address blacklisted');
       setBlacklistAddr('');
       setTimeout(() => setMessage(''), 3000);
     } catch (err) {
-      setMessage('✗ Failed to blacklist address');
+      setMessage('Error: Failed to blacklist address');
     }
   };
 
   const handleWhitelist = async () => {
     try {
       await onWhitelistAddress(whitelistAddr);
-      setMessage('✓ Address whitelisted');
+      setMessage('Success: Address whitelisted');
       setWhitelistAddr('');
       setTimeout(() => setMessage(''), 3000);
     } catch (err) {
-      setMessage('✗ Failed to whitelist address');
+      setMessage('Error: Failed to whitelist address');
     }
   };
 
   const handleUpdateThresholds = async () => {
     try {
       await onUpdateThresholds(critThreshold, highThreshold, medThreshold);
-      setMessage('✓ Thresholds updated');
+      setMessage('Success: Thresholds updated');
       setTimeout(() => setMessage(''), 3000);
     } catch (err) {
-      setMessage('✗ Failed to update thresholds');
+      setMessage('Error: Failed to update thresholds');
     }
   };
 
@@ -124,7 +124,7 @@ export const AdminControls = ({
 
       {message && (
         <div className={`mb-4 p-3 rounded-lg text-sm font-semibold ${
-          message.includes('✓') ? 'bg-green-500/20 text-green-400' : 'bg-red-500/20 text-red-400'
+          message.startsWith('Success:') ? 'bg-green-500/20 text-green-400' : 'bg-red-500/20 text-red-400'
         }`}>
           {message}
         </div>
@@ -321,7 +321,7 @@ export const AdminControls = ({
           <button
             onClick={handleUpdateThresholds}
             disabled={loading}
-            className="w-full bg-purple-600 hover:bg-purple-700 disabled:bg-gray-700 text-white font-semibold py-2 px-4 rounded-lg transition"
+            className="w-full bg-sky-600 hover:bg-sky-700 disabled:bg-gray-700 text-white font-semibold py-2 px-4 rounded-lg transition"
           >
             Update Thresholds
           </button>
