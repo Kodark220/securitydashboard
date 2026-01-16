@@ -1,4 +1,4 @@
-import { useState, useCallback, useMemo } from 'react';
+﻿import { useState, useCallback, useMemo } from 'react';
 import { getContractAddress } from '../lib/config';
 import type {
   SystemStatus,
@@ -65,7 +65,7 @@ const getMockSystemDashboard = (): SystemDashboard => {
   return {
     system_status: {
       health: 'excellent',
-      icon: '🟢',
+      icon: 'OK',
       paused: false,
       monitoring: true,
       owner: contractAddress,
@@ -154,7 +154,7 @@ const MOCK_THREAT_SUMMARY: ThreatSummary = {
     medium: 8,
     total: 13,
   },
-  visual_summary: '🔴 1 Critical | 🟠 4 High | 🟡 8 Medium',
+  visual_summary: 'Critical 1 | High 4 | Medium 8',
   system_alert: false,
   alert_message: 'System monitoring normally',
   action_items: 5,
@@ -243,7 +243,7 @@ const MOCK_WEBHOOK_CONFIG: WebhookConfig = {
 const MOCK_WALLET_RISK_DASHBOARD: WalletRiskDashboard = {
   wallet: '0xuser1234567890abcdef1234567890abcdef12',
   overall_status: 'Safe',
-  status_icon: '🟢',
+  status_icon: 'OK',
   health_score: 82,
   security_metrics: {
     safe_contracts: 15,
@@ -283,7 +283,7 @@ const MOCK_DAPP_HEALTH: DAppHealthStatus = {
   status: 'health_check_complete',
   dapp: 'Sample dApp',
   address: '0xSampleDapp',
-  health_icon: '🟢',
+  health_icon: 'OK',
   health_status: 'healthy',
   risk_level: 'low',
   security_issues: [],
@@ -307,7 +307,7 @@ const MOCK_DANGEROUS_APPROVALS: DangerousApprovals = {
   dangerous_approvals_found: 0,
   severity: 'safe',
   approvals: [],
-  recommendation: '✅ No infinite approvals found',
+  recommendation: 'No infinite approvals found',
   how_to_revoke: 'Use token contract approve() with amount=0',
 };
 
@@ -320,7 +320,7 @@ const MOCK_APPROVAL_SAFETY: ApprovalSafetyReport = {
   approval_audit: {
     total_dangerous: 0,
     critical_risk: false,
-    recommendation: '✅ Approvals are safe',
+    recommendation: 'Approvals are safe',
   },
   safety_score: 100,
   next_steps: ['Your approvals look safe'],
@@ -445,7 +445,7 @@ export const useSecurityGuard = (contractAddress?: string) => {
       await callContract('get_address_profile', { address: addr });
       return {
         address: addr,
-        security_status: '🟢 Safe',
+        security_status: 'Safe',
         risk_profile: 'safe',
         risk_score: 15,
         threat_level: 'low',
@@ -553,7 +553,10 @@ export const useSecurityGuard = (contractAddress?: string) => {
   const scanWalletSecurity = useCallback(
     async (walletAddr: string): Promise<WalletSecurityScan> => {
       await callContract('scan_wallet_security', { wallet_addr: walletAddr });
-      return MOCK_WALLET_SECURITY_SCAN;
+      return {
+        ...MOCK_WALLET_SECURITY_SCAN,
+        wallet: walletAddr,
+      };
     },
     [callContract]
   );
@@ -561,7 +564,10 @@ export const useSecurityGuard = (contractAddress?: string) => {
   const getWalletRiskDashboard = useCallback(
     async (walletAddr: string): Promise<WalletRiskDashboard> => {
       await callContract('get_wallet_risk_dashboard', { wallet_addr: walletAddr });
-      return MOCK_WALLET_RISK_DASHBOARD;
+      return {
+        ...MOCK_WALLET_RISK_DASHBOARD,
+        wallet: walletAddr,
+      };
     },
     [callContract]
   );
@@ -726,7 +732,10 @@ export const useSecurityGuard = (contractAddress?: string) => {
   const getApprovalSafetyReport = useCallback(
     async (walletAddr: string): Promise<ApprovalSafetyReport> => {
       await callContract('get_approval_safety_report', { wallet_addr: walletAddr });
-      return MOCK_APPROVAL_SAFETY;
+      return {
+        ...MOCK_APPROVAL_SAFETY,
+        wallet: walletAddr,
+      };
     },
     [callContract]
   );
@@ -862,3 +871,5 @@ export const useSecurityGuard = (contractAddress?: string) => {
     updateThresholds,
   };
 };
+
+

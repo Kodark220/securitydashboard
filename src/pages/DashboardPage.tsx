@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+﻿import { useEffect, useState } from 'react';
 import { StatusCard } from '../components/StatusCard';
 import { RiskCharts } from '../components/RiskCharts';
 import { IntelligencePanel } from '../components/IntelligencePanel';
@@ -12,6 +12,7 @@ import { WalletSecurityPanel } from '../components/WalletSecurityPanel';
 import { DAppMonitoringPanel } from '../components/DAppMonitoringPanel';
 import { ApprovalAudit } from '../components/ApprovalAudit';
 import { ContractWatchManager } from '../components/ContractWatchManager';
+import { WalletConnectPanel, type WalletSource } from '../components/WalletConnectPanel';
 import { useSecurityGuard } from '../hooks/useSecurityGuard';
 import { GENLAYER_NETWORK, formatAddress, getContractAddress } from '../lib/config';
 import type {
@@ -52,9 +53,23 @@ export const DashboardPage = () => {
   const [webhookConfig, setWebhookConfig] = useState<WebhookConfigType | null>(null);
   const [error, setError] = useState('');
   const [lastUpdated, setLastUpdated] = useState<Date | null>(null);
+  const [walletAddress, setWalletAddress] = useState<string | null>(null);
+  const [walletSource, setWalletSource] = useState<WalletSource | null>(null);
   const [activeTab, setActiveTab] = useState<
     'overview' | 'threats' | 'intelligence' | 'health' | 'wallet' | 'dapps' | 'approvals' | 'settings'
   >('overview');
+
+  useEffect(() => {
+    if (typeof window === 'undefined') return;
+    const storedAddress = window.localStorage.getItem('sg_wallet_address');
+    const storedSource = window.localStorage.getItem('sg_wallet_source');
+    if (storedAddress) {
+      setWalletAddress(storedAddress);
+    }
+    if (storedSource === 'metamask' || storedSource === 'manual') {
+      setWalletSource(storedSource);
+    }
+  }, []);
 
   const loadData = async () => {
     try {
@@ -93,6 +108,25 @@ export const DashboardPage = () => {
       setLastUpdated(new Date());
     } catch (err) {
       setError(err instanceof Error ? err.message : 'Failed to load dashboard');
+    }
+  };
+
+  const handleWalletConnect = (address: string, source: WalletSource) => {
+    const normalizedAddress = address.trim();
+    setWalletAddress(normalizedAddress);
+    setWalletSource(source);
+    if (typeof window !== 'undefined') {
+      window.localStorage.setItem('sg_wallet_address', normalizedAddress);
+      window.localStorage.setItem('sg_wallet_source', source);
+    }
+  };
+
+  const handleWalletDisconnect = () => {
+    setWalletAddress(null);
+    setWalletSource(null);
+    if (typeof window !== 'undefined') {
+      window.localStorage.removeItem('sg_wallet_address');
+      window.localStorage.removeItem('sg_wallet_source');
     }
   };
 
@@ -205,14 +239,14 @@ export const DashboardPage = () => {
       {/* Tab Navigation */}
       <div className="tabs-shell overflow-x-auto fade-rise stagger-1">
         {[
-          { id: 'overview', label: '📊 Overview' },
-          { id: 'threats', label: '⚠️ Threats' },
-          { id: 'intelligence', label: '🤖 Intelligence' },
-          { id: 'health', label: '🏥 Health' },
-          { id: 'wallet', label: '👛 Wallet' },
-          { id: 'dapps', label: '🔗 dApps' },
-          { id: 'approvals', label: '✅ Approvals' },
-          { id: 'settings', label: '⚙️ Settings' },
+          { id: 'overview', label: 'Overview' },
+          { id: 'threats', label: 'Threats' },
+          { id: 'intelligence', label: 'Intelligence' },
+          { id: 'health', label: 'Health' },
+          { id: 'wallet', label: 'Wallet' },
+          { id: 'dapps', label: 'dApps' },
+          { id: 'approvals', label: 'Approvals' },
+          { id: 'settings', label: 'Settings' },
         ].map((tab) => (
           <button
             key={tab.id}
@@ -276,7 +310,15 @@ export const DashboardPage = () => {
       {activeTab === 'wallet' && (
         <div className="space-y-6">
           <div className="fade-rise stagger-1">
-            <WalletSecurityPanel />
+            <WalletConnectPanel
+              walletAddress={walletAddress}
+              walletSource={walletSource}
+              onConnect={handleWalletConnect}
+              onDisconnect={handleWalletDisconnect}
+            />
+          </div>
+          <div className="fade-rise stagger-2">
+            <WalletSecurityPanel walletAddress={walletAddress ?? undefined} />
           </div>
         </div>
       )}
@@ -297,7 +339,7 @@ export const DashboardPage = () => {
       {activeTab === 'approvals' && (
         <div className="space-y-6">
           <div className="fade-rise stagger-1">
-            <ApprovalAudit />
+            <ApprovalAudit walletAddress={walletAddress ?? undefined} />
           </div>
         </div>
       )}
@@ -321,8 +363,9 @@ export const DashboardPage = () => {
         disabled={loading}
         className="w-full rounded-2xl border border-slate-300/60 bg-white/70 text-slate-900 font-semibold py-3 px-4 shadow-lg shadow-slate-900/10 transition hover:-translate-y-0.5 hover:shadow-xl disabled:opacity-70"
       >
-        {loading ? 'Refreshing...' : '🔄 Refresh All Data'}
+        {loading ? 'Refreshing...' : 'Refresh All Data'}
       </button>
     </div>
   );
 };
+
